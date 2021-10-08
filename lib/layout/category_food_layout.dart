@@ -5,16 +5,16 @@ import 'package:dicoding_food/thumbnail/food_thumb.dart';
 
 
 class CategoryFoodLayout extends StatefulWidget {
-  static const routeName = '/categories-meals';
-  final List<Food> availableMeals;
-  CategoryFoodLayout(this.availableMeals);
+  static const routeName = '/category-food';
+  final List<Food> availableFood;
+  CategoryFoodLayout(this.availableFood);
   @override
-  _CategoryMealScreenState createState() => _CategoryMealScreenState();
+  _CategoryFoodLayoutState createState() => _CategoryFoodLayoutState();
 }
 
-class _CategoryMealScreenState extends State<CategoryFoodLayout> {
+class _CategoryFoodLayoutState extends State<CategoryFoodLayout> {
   String categoryTitle;
-  List<Food> displayedMeals;
+  List<Food> displayedFood;
   @override
   void initState() {
     super.initState();
@@ -26,16 +26,10 @@ class _CategoryMealScreenState extends State<CategoryFoodLayout> {
     ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryId = routearg['id'];
     categoryTitle = routearg['title'];
-    displayedMeals = widget.availableMeals.where((meal) {
-      return meal.categories.contains(categoryId);
+    displayedFood = widget.availableFood.where((food) {
+      return food.categories.contains(categoryId);
     }).toList();
     super.didChangeDependencies();
-  }
-  //this functions is not used anymore, i only wrote it down for testing and revision purpose.
-  void _removeMeal(String mealId) {
-    setState(() {
-      displayedMeals.removeWhere((meal) => meal.id == mealId);
-    });
   }
 
   @override
@@ -45,15 +39,15 @@ class _CategoryMealScreenState extends State<CategoryFoodLayout> {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return FoodThumb(
-            displayedMeals[index].title,
-            displayedMeals[index].imageUrl,
-            displayedMeals[index].duration,
-            displayedMeals[index].complexity,
-            displayedMeals[index].affordability,
-            displayedMeals[index].id,
+            displayedFood[index].title,
+            displayedFood[index].imageUrl,
+            displayedFood[index].duration,
+            displayedFood[index].distance,
+            displayedFood[index].openTime,
+            displayedFood[index].id,
           );
         },
-        itemCount: displayedMeals.length,
+        itemCount: displayedFood.length,
       ),
     );
   }

@@ -6,5 +6,5 @@ class Category {
   final Color color;
 
   const Category(
-      {@required this.id, @required this.title, this.color = Colors.blue});
+      {@required this.id, @required this.title, this.color = Colors.black});
 }

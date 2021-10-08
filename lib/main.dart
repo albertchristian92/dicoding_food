@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends  State<MyApp> {
   Map<String, bool> _filters = {
     'halal': false,
-    'lactose': false,
+    'gluten': false,
     'vegetarian': false,
   };
   List<Food> _availableFoods = food_data;
@@ -28,10 +28,10 @@ class _MyAppState extends  State<MyApp> {
     setState(() {
       _filters = filterdata;
       _availableFoods = food_data.where((food) {
-        if (_filters['gluten'] && !food.isHalal) {
+        if (_filters['halal'] && !food.isHalal) {
           return false;
         }
-        if (_filters['lactose'] && !food.isLactoseFree) {
+        if (_filters['gluten'] && !food.isGlutenFree) {
           return false;
         }
         if (_filters['vegetarian'] && !food.isVegetarian) {
@@ -64,26 +64,11 @@ class _MyAppState extends  State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DeliMeals',
+      title: 'Restoran Dicoding ',
       theme: ThemeData(
-          primarySwatch: Colors.pink,
-          accentColor: Colors.amber,
-          canvasColor: Color.fromRGBO(255, 254, 229, 1),
-          fontFamily: 'Raleway',
-          textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),
-              bodyText2: TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),
-              headline6: TextStyle(
-                fontSize: 20,
-                fontFamily: 'RobotoCondensed',
-                fontWeight: FontWeight.bold,
-              ))),
-      //home: CategoryScreen(),
-      //to remove the debug banner on the application
+        primarySwatch: Colors.orange,
+      ),
+
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (ctx) => TabsScreen(_loveFoods),
@@ -92,13 +77,9 @@ class _MyAppState extends  State<MyApp> {
         LayoutFoodDetail.routeName: (ctx) => LayoutFoodDetail(_toggleFavorite,_isFoodFavorite),
         FilterLayout.routeName: (ctx) => FilterLayout(_filters, _setFilter),
       },
-      // ignore: missing_return
       onGenerateRoute: (settings) {
-        //generate route enables u to create new pages instantly while in the cycle of the app's life.
-        print(settings.arguments); //to display the name
-        // return MaterialPageRoute(builder: (ctx) => CategoryScreen());
+        print(settings.arguments);
       },
-      //unknown route is used to enable a fallback from last resort of the app.
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => CategoryLayout());
       },

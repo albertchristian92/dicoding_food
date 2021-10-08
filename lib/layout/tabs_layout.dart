@@ -18,8 +18,8 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   void initState() {
     _pages = [
-      {'page': CategoryLayout(), 'title': 'Categories'},
-      {'page': SaveFood(widget.favoriteMeals), 'title': 'Your Favorites'}
+      {'page': CategoryLayout(), 'title': 'Jenis Makanan'},
+      {'page': SaveFood(widget.favoriteMeals), 'title': 'Makanan Favorit'}
     ];
     super.initState();
   }
@@ -32,26 +32,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return // DefaultTabController(
-      //     length: 2,
-      //     // initialIndex: 1,  inorder to have the default tab changed.
-      //     child: Scaffold(
-      //       appBar: AppBar(
-      //         title: Text('Meals'),
-      //         bottom: TabBar(
-      //           tabs: [
-      //             Tab(icon: Icon(Icons.category), text: 'Categroies'),
-      //             Tab(
-      //               icon: Icon(Icons.star),
-      //               text: 'Favorite',
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //       body: TabBarView(
-      //         children: [CategoryScreen(), FavoriteScreen()],
-      //       ),
-      //     ));
+    return
       Scaffold(
         appBar: AppBar(
           title: Text(_pages[_selectedPageIndex]['title']),
@@ -62,19 +43,18 @@ class _TabsScreenState extends State<TabsScreen> {
           onTap: _selectPage,
           backgroundColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.white,
-          selectedItemColor: Theme.of(context).accentColor,
+          selectedItemColor: Colors.blue,
           currentIndex: _selectedPageIndex,
-          //type: BottomNavigationBarType.shifting,
           items: [
             BottomNavigationBarItem(
               backgroundColor: Theme.of(context).primaryColor,
               icon: Icon(Icons.category),
-              label: 'Categories',
+              label: 'Jenis Makanan',
             ),
             BottomNavigationBarItem(
               backgroundColor: Theme.of(context).primaryColor,
               icon: Icon(Icons.star),
-              label: 'Favorites',
+              label: 'Makanan Favorit',
             )
           ],
         ),

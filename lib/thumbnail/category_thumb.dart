@@ -1,6 +1,6 @@
 import 'package:dicoding_food/layout/category_food_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:dicoding_food/layout/layout_food_detail.dart';
+
 
 
 class CategoryThumb extends StatelessWidget {

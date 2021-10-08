@@ -10,11 +10,6 @@ class MainLayout extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(
-          fontFamily: 'RobotoCondensed',
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
       ),
       onTap: taphandler,
     );
@@ -32,7 +27,7 @@ class MainLayout extends StatelessWidget {
             alignment: Alignment.centerLeft,
             color: Theme.of(context).accentColor,
             child: Text(
-              'Cooking Up!',
+              'Silahkan pilih restaurant yang diinginkan',
               style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 30,
@@ -42,10 +37,10 @@ class MainLayout extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          buildListTile('Meals', Icons.restaurant, () {
+          buildListTile('Restoran', Icons.restaurant, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
-          buildListTile('Filters', Icons.settings, () {
+          buildListTile('Filter', Icons.settings, () {
             Navigator.of(context).pushReplacementNamed(FilterLayout.routeName);
           })
         ],

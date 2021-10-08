@@ -12,16 +12,14 @@ class FilterLayout extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterLayout> {
-  bool _glutenFree = false;
+  bool _halal = false;
   bool _vegetarian = false;
-  bool _vegan = false;
-  bool _lactoseFree = false;
+  bool _glutenFree = false;
   @override
   initState() {
+    _halal = widget.updatedfilter['halal'];
+    _vegetarian = widget.updatedfilter['vegetarian'];
     _glutenFree = widget.updatedfilter['gluten'];
-    _vegetarian = widget.updatedfilter['vegatarian'];
-    _vegan = widget.updatedfilter['vegan'];
-    _lactoseFree = widget.updatedfilter['lactose'];
     super.initState();
   }
 
@@ -39,16 +37,15 @@ class _FilterScreenState extends State<FilterLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Your Filters'),
+          title: Text('Filter Restoran'),
           actions: [
             IconButton(
                 icon: Icon(Icons.save),
                 onPressed: () {
                   final selectedFilters = {
+                    'halal': _halal,
                     'gluten': _glutenFree,
-                    'lactose': _lactoseFree,
-                    'vegan': _vegan,
-                    'vegatarian': _vegetarian,
+                    'vegetarian': _vegetarian,
                   };
                   widget.saveFilters(selectedFilters);
                   Navigator.of(context).pushReplacementNamed('/');
@@ -61,38 +58,32 @@ class _FilterScreenState extends State<FilterLayout> {
             Container(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  'Adjust your Meal Selection.',
+                  'Pilih makanan yang kamu cari.',
                   style: Theme.of(context).textTheme.headline6,
                 )),
             Expanded(
                 child: ListView(
                   children: [
                     buildswitchlist(
-                        'Gluten-Free', 'Only include gluten-free meals.',
+                        'Halal', 'Makanan halal.',
+                            (newvalue) {
+                          setState(() {
+                            _halal = newvalue;
+                          });
+                        }, _halal),
+                    buildswitchlist(
+                        'Gluten-Free', 'Makanan bebas gluten.',
                             (newvalue) {
                           setState(() {
                             _glutenFree = newvalue;
                           });
                         }, _glutenFree),
-                    buildswitchlist(
-                        'Lactose-Free', 'Only include Lactose-free meals.',
-                            (newvalue) {
-                          setState(() {
-                            _lactoseFree = newvalue;
-                          });
-                        }, _lactoseFree),
-                    buildswitchlist('Vegetarian', 'Only include Vegetarian meals.',
+                    buildswitchlist('Vegetarian', 'Makanan Vegetarian.',
                             (newvalue) {
                           setState(() {
                             _vegetarian = newvalue;
                           });
                         }, _vegetarian),
-                    buildswitchlist('Vegan', 'Only include Vegan meals.',
-                            (newvalue) {
-                          setState(() {
-                            _vegan = newvalue;
-                          });
-                        }, _vegan),
                   ],
                 ))
           ],

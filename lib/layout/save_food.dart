@@ -3,29 +3,29 @@ import 'package:dicoding_food/model/food.dart';
 import 'package:dicoding_food/thumbnail/food_thumb.dart';
 
 class SaveFood extends StatelessWidget {
-  final List<Food> favoriteMeals;
+  final List<Food> loveFood;
   //constructor
-  SaveFood(this.favoriteMeals);
+  SaveFood(this.loveFood);
 
   @override
   Widget build(BuildContext context) {
-    if (favoriteMeals.isEmpty) {
+    if (loveFood.isEmpty) {
       return Center(
-        child: Text('You have no favorites yet - start adding some!'),
+        child: Text('Belum ada restoran yang disimpan'),
       );
     } else {
       return ListView.builder(
         itemBuilder: (ctx, index) {
           return FoodThumb(
-            favoriteMeals[index].title,
-            favoriteMeals[index].imageUrl,
-            favoriteMeals[index].duration,
-            favoriteMeals[index].complexity,
-            favoriteMeals[index].affordability,
-            favoriteMeals[index].id,
+            loveFood[index].title,
+            loveFood[index].imageUrl,
+            loveFood[index].duration,
+            loveFood[index].distance,
+            loveFood[index].openTime,
+            loveFood[index].id,
           );
         },
-        itemCount: favoriteMeals.length,
+        itemCount: loveFood.length,
       );
     }
   }

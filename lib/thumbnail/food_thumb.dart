@@ -1,39 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:dicoding_food/model/food.dart';
 import 'package:dicoding_food/layout/layout_food_detail.dart';
 
 class FoodThumb extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
-  final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  final String duration;
+  final String distance;
+  final String openTime;
 
-  FoodThumb(this.title, this.imageUrl, this.duration, this.complexity,
-      this.affordability, this.id);
+  FoodThumb(this.title, this.imageUrl, this.duration, this.distance, this.openTime,
+      this.id);
 
-  String get complexityText {
-    if (complexity == Complexity.Challenging) {
-      return "Challenging";
-    }
-    if (complexity == Complexity.Hard) {
-      return "Hard";
-    } else {
-      return "Simple";
-    }
-  }
-
-  String get affordabilityText {
-    if (affordability == Affordability.Affordable) {
-      return "Affordable";
-    }
-    if (affordability == Affordability.Luxurious) {
-      return "Luxurious";
-    } else {
-      return "Pricey";
-    }
-  }
 
   void selectMeal(BuildContext ctx) {
     Navigator.of(ctx)
@@ -104,23 +82,23 @@ class FoodThumb extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.work,
+                        Icons.food_bank,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text(complexityText),
+                      Text('$openTime '),
                     ],
                   ),
                   Row(
                     children: [
                       Icon(
-                        Icons.attach_money,
+                        Icons.location_on,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text(affordabilityText),
+                      Text('$distance km'),
                     ],
                   ),
                 ],

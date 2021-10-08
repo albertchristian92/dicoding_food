@@ -5,8 +5,8 @@ import 'package:dicoding_food/food_data.dart';
 class LayoutFoodDetail extends StatelessWidget {
   static const routeName = '/food-detail';
   final Function favoritetoggler;
-  final Function isFavorite;
-  LayoutFoodDetail(this.favoritetoggler, this.isFavorite);
+  final Function isLove;
+  LayoutFoodDetail(this.favoritetoggler, this.isLove);
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
@@ -30,14 +30,24 @@ class LayoutFoodDetail extends StatelessWidget {
     );
   }
 
+  Widget buildDescription(Widget child) {
+    return Container(
+      height: 150,
+      width: 400,
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final mealId = ModalRoute.of(context).settings.arguments as String;
-    final selectedMeal =
-    food_data.firstWhere((element) => element.id == mealId);
+    final foodId = ModalRoute.of(context).settings.arguments as String;
+    final selectedFood =
+    food_data.firstWhere((element) => element.id == foodId);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedMeal.title}'),
+        title: Text('${selectedFood.title}'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -46,31 +56,35 @@ class LayoutFoodDetail extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                selectedMeal.imageUrl,
+                selectedFood.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
-            buildSectionTitle(context, "Ingredients"),
-            buildContainer(
-              ListView.builder(
-                itemCount: selectedMeal.menu.length,
-                itemBuilder: (ctx, index) => Card(
-                  color: Theme.of(context).accentColor,
-                  child: Padding(
-                    padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: Text(selectedMeal.menu[index]),
-                  ),
-                ),
-              ),
+            buildDescription(
+                Text(selectedFood.description)
             ),
+            buildSectionTitle(context, "Menu"),
+            buildContainer(ListView.builder(
+              itemCount: selectedFood.menu.length,
+              itemBuilder: (ctx, index) => Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      child: Text('# ${index + 1}'),
+                    ),
+                    title: Text(selectedFood.menu[index]),
+                  ),
+                  Divider(),
+                ],
+              ),
+            ))
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(isFavorite(mealId) ? Icons.star : Icons.star_border),
+        child: Icon(isLove(foodId) ? Icons.star : Icons.star_border),
         onPressed: () {
-          favoritetoggler(mealId);
+          favoritetoggler(foodId);
         },
       ),
     );
